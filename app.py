@@ -1,5 +1,7 @@
 from flask import Flask,render_template, request
 import sqlite3
+import string
+import random
 
 app = Flask(__name__)
 
@@ -20,6 +22,16 @@ def init_db():
 
     connection.commit()
     connection.close()
+
+def generate_short_code():
+    short_code=""
+    characters = string.ascii_letters + string.digits
+
+    for i in range(6):
+        short_code += random.choice(characters)
+
+    return short_code
+
 
 @app.route("/")
 def home():
