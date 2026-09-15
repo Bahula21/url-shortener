@@ -32,6 +32,23 @@ def generate_short_code():
 
     return short_code
 
+def code_exists(short_code):
+    connection = get_db()
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        "SELECT short_code FROM urls WHERE short_code = ? ", (short_code,)
+        
+        connection.close    
+    """)
+
+    result = cursor.fetchone()
+
+    if result is not None:
+        return True
+    else:
+        return False
+
 
 @app.route("/")
 def home():
@@ -40,8 +57,13 @@ def home():
 @app.route("/shorten", methods=["POST"])
 def shorten():
     long_url=request.form["long_url"]
-    return long_url
 
+    short_code = generate_short_code()
+
+    while(code_exists(short_code)):
+        short_code = generate_short_code()
+
+    
 init_db()
 
 if __name__ == "__main__":
