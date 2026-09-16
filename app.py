@@ -36,11 +36,11 @@ def code_exists(short_code):
     connection = get_db()
     cursor = connection.cursor()
 
-    cursor.execute("""
-        "SELECT short_code FROM urls WHERE short_code = ? ", (short_code,)
-        
-        connection.close    
-    """)
+    cursor.execute(
+        "SELECT short_code FROM urls WHERE short_code = ? ", (short_code,)   
+    )
+
+    connection.close 
 
     result = cursor.fetchone()
 
@@ -63,7 +63,18 @@ def shorten():
     while(code_exists(short_code)):
         short_code = generate_short_code()
 
-    
+    connection = get_db()
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "INSERT INTO urls (short_code,long_url) VALUES (?,?)", (short_code, long_url)
+    )
+
+    connection.commit()
+    connection.close()
+
+    return short_code
+
 init_db()
 
 if __name__ == "__main__":
