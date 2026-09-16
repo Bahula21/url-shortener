@@ -88,7 +88,11 @@ def redirect_to_url(short_code):
 
     connection.close()
 
+    if result is None:
+        return "Short URL not found",404
+
     return redirect(result[0])
+
 
 
 init_db()
