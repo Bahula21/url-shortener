@@ -1,4 +1,4 @@
-from flask import Flask,render_template, request
+from flask import Flask,render_template, request, redirect
 import sqlite3
 import string
 import random
@@ -40,9 +40,9 @@ def code_exists(short_code):
         "SELECT short_code FROM urls WHERE short_code = ? ", (short_code,)   
     )
 
-    connection.close 
-
     result = cursor.fetchone()
+
+    connection.close()
 
     if result is not None:
         return True
@@ -73,7 +73,23 @@ def shorten():
     connection.commit()
     connection.close()
 
-    return short_code
+    return "http://127.0.0.1:5000/" + short_code
+
+@app.route("/<short_code>")
+def redirect_to_url(short_code):
+    connection = get_db()
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "SELECT long_url FROM urls WHERE short_code=?",(short_code,)
+    )
+
+    result = cursor.fetchone()
+
+    connection.close()
+
+    return redirect(result[0])
+
 
 init_db()
 
