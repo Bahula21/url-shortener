@@ -58,6 +58,9 @@ def home():
 def shorten():
     long_url=request.form["long_url"]
 
+    if not long_url.startswith(("http://", "https://")):
+        return "Invalid URL", 400
+
     short_code = generate_short_code()
 
     while(code_exists(short_code)):
