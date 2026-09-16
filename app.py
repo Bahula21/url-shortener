@@ -58,6 +58,9 @@ def home():
 def shorten():
     long_url=request.form["long_url"]
 
+    if not long_url:
+        return "Please enter a URL", 400
+
     if not long_url.startswith(("http://", "https://")):
         return "Invalid URL", 400
 
