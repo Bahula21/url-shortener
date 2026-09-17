@@ -79,7 +79,7 @@ def shorten():
     connection.commit()
     connection.close()
 
-    return "http://127.0.0.1:5000/" + short_code
+    return render_template("result.html", short_code=short_code)
 
 @app.route("/<short_code>")
 def redirect_to_url(short_code):
