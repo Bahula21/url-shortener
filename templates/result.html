@@ -4,13 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL Shortened</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-    <h1>Your URL has been shortened!</h1>
-    <p>
-        <a href="/{{short_code}}">
-            http://127.0.0.1:5000/{{ short_code }}
-        </a>
-    </p>
+<body class="result-body">
+    <main class="result-page">
+        <section class="result-card">
+            <p class="eyebrow">Success</p>
+            <h1>Your link is ready!</h1>
+            <p class="subtitle">
+                Your short URL is generated and ready to share with friends, teammates,
+                or anyone who needs a cleaner link.
+            </p>
+
+            <div class="short-url-block">
+                <span class="label">Short URL</span>
+                <a class="short-url" href="/{{ short_code }}" target="_blank" rel="noopener noreferrer">
+                    http://127.0.0.1:5000/{{ short_code }}
+                </a>
+            </div>
+
+            <div class="actions">
+                <a class="primary-btn" href="http://127.0.0.1:5000/{{ short_code }}" target="_blank" rel="noopener noreferrer">
+                    Open Link
+                </a>
+                <a class="secondary-btn" href="/">
+                    Create another short URL
+                </a>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

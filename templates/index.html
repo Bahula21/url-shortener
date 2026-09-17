@@ -4,12 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL Shortener</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>URL SHORTENER</h1>
-    <form action="/shorten" method="POST">
-        <input type="text" name="long_url">
-        <button>Shorten</button>
-    </form>
+    <div class="page-shell">
+        <main class="hero">
+            <section class="hero-copy">
+                <h1>Shorten Your Links.</h1>
+                <p class="subtitle">
+                    Turn long URLs into clean, shareable links that are easier to send,
+                    remember, and use across projects, socials, and everyday sharing.
+                </p>
+
+                <form action="/shorten" method="POST" class="shortener-form">
+                    <input type="text" name="long_url" placeholder="Paste a long URL here" aria-label="Long URL">
+                    <button type="submit">Shorten URL</button>
+                </form>
+
+                <div class="process" aria-label="How the URL shortener works">
+                    <span class="step">Long URL</span>
+                    <span class="arrow">→</span>
+                    <span class="step">Short URL</span>
+                    <span class="arrow">→</span>
+                    <span class="step">Redirect</span>
+                </div>
+            </section>
+
+            <aside class="visual-card" aria-label="URL shortener preview">
+                <div class="url-demo">
+                    <div class="demo-header">
+                        <span class="dot dot-one"></span>
+                        <span class="dot dot-two"></span>
+                        <span class="dot dot-three"></span>
+                    </div>
+
+                    <div class="demo-url-box">
+                        <span class="label">Original</span>
+                        <p>https://example.com/very/long/project/page</p>
+                    </div>
+
+                    <div class="demo-link-row">
+                        <span class="link-tag">short.ly/ab12cd</span>
+                        <span class="status">Redirects instantly</span>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
 </body>
 </html>

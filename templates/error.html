@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Something went wrong</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="result-body">
+    <main class="result-page">
+        <section class="result-card error-card">
+            <p class="eyebrow">Warning</p>
+            <h1>Something went wrong</h1>
+            <p class="subtitle">
+                {{ message }}
+            </p>
+
+            <div class="actions">
+                <a class="secondary-btn" href="/">
+                    Back to Shortener
+                </a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

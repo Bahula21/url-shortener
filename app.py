@@ -59,10 +59,10 @@ def shorten():
     long_url=request.form["long_url"]
 
     if not long_url:
-        return "Please enter a URL", 400
+        return render_template("error.html", message="Please enter a URL"), 400
 
     if not long_url.startswith(("http://", "https://")):
-        return "Invalid URL", 400
+        return render_template("error.html", message="Invalid URL"), 400
 
     short_code = generate_short_code()
 
@@ -95,7 +95,7 @@ def redirect_to_url(short_code):
     connection.close()
 
     if result is None:
-        return "Short URL not found",404
+        return render_template("error.html", message="Short URL not found!"), 404
 
     return redirect(result[0])
 
