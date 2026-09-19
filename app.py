@@ -16,7 +16,8 @@ def init_db():
         CREATE TABLE IF NOT EXISTS urls(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             short_code TEXT UNIQUE,
-            long_url TEXT
+            long_url TEXT,
+            clicks INTEGER DEFAULT 0
         )
     """)
 
@@ -92,10 +93,17 @@ def redirect_to_url(short_code):
 
     result = cursor.fetchone()
 
-    connection.close()
+    # connection.close()
 
     if result is None:
         return render_template("error.html", message="Short URL not found!"), 404
+
+    cursor.execute(
+        "UPDATE urls SET clicks = clicks +1 WHERE short_code = ?",(short_code,)
+    )
+
+    connection.commit()
+    connection.close()
 
     return redirect(result[0])
 
