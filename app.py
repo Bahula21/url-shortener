@@ -50,6 +50,22 @@ def code_exists(short_code):
     else:
         return False
 
+def get_existing_short_code(long_url):
+    connection = get_db()
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "SELECT short_code FROM urls WHERE long_url = ?",(long_url,)
+    )
+
+    result = cursor.fetchone()
+    connection.close()
+
+    if result is not None:
+        return result[0]
+    else:
+        return None
+
 
 @app.route("/")
 def home():
@@ -64,6 +80,11 @@ def shorten():
 
     if not long_url.startswith(("http://", "https://")):
         return render_template("error.html", message="Invalid URL"), 400
+
+    existing_short_code = get_existing_short_code(long_url)
+
+    if existing_short_code is not None:
+        return render_template("result.html", short_code = existing_short_code)
 
     short_code = generate_short_code()
 
@@ -92,8 +113,6 @@ def redirect_to_url(short_code):
     )
 
     result = cursor.fetchone()
-
-    # connection.close()
 
     if result is None:
         return render_template("error.html", message="Short URL not found!"), 404
