@@ -386,6 +386,15 @@ h1 {
     transform: translateY(-1px);
 }
 
+#copy-btn{
+    border:none;
+    font-size:0.9rem;
+}
+
+#copy-btn:hover{
+    cursor: pointer;
+}
+
 @media (max-width: 560px) {
     .result-card {
         padding: 24px 18px;

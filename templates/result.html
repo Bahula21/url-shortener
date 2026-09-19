@@ -24,6 +24,7 @@
             </div>
 
             <div class="actions">
+                <button class="primary-btn" id="copy-btn" onclick="copyLink()">Copy Link</button>
                 <a class="primary-btn" href="http://127.0.0.1:5000/{{ short_code }}" target="_blank" rel="noopener noreferrer">
                     Open Link
                 </a>
@@ -33,5 +34,20 @@
             </div>
         </section>
     </main>
+
+    <script>
+        function copyLink() {
+            const link = window.location.origin + "/{{ short_code }}";
+            const button = document.getElementById("copy-btn");
+
+            navigator.clipboard.writeText(link);
+
+            button.textContent = "✓ Copied!";
+
+            setTimeout(() => {
+                button.textContent = "Copy Link";
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
